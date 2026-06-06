@@ -62,15 +62,19 @@ if (heroWindow) {
 }
 
 /* -------------------------------------------------------------------------
-   Live demo — lazy chunk that boots the real @pierre diff/tree engine.
+   Live demo - lazy chunk that boots the real @pierre diff/tree engine.
    Loaded immediately (it is the hero centerpiece) but kept out of the main
    bundle so initial paint stays fast.
    ------------------------------------------------------------------------- */
 const demoRoot = document.querySelector('[data-demo]')
-if (demoRoot) {
+const folderTreeEl = document.querySelector('[data-folder-tree]')
+if (demoRoot || folderTreeEl) {
   import('./demo.js')
-    .then((m) => m.mountDemo(demoRoot))
-    .catch((err) => console.warn('Diffly demo failed to load —', err))
+    .then((m) => {
+      if (demoRoot) m.mountDemo(demoRoot)
+      if (folderTreeEl) m.mountFolderTree(folderTreeEl)
+    })
+    .catch((err) => console.warn('Diffly demo failed to load:', err))
 }
 
 /* -------------------------------------------------------------------------
@@ -127,7 +131,7 @@ async function wireDownloads() {
     }
   } catch (err) {
     // Keep the static fallback hrefs already present in the markup.
-    console.warn('Diffly: could not resolve latest release —', err.message)
+    console.warn('Diffly: could not resolve latest release -', err.message)
   }
 }
 

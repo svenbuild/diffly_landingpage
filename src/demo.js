@@ -1,5 +1,5 @@
 /* =========================================================================
-   Interactive Diffly demo — powered by the SAME engine the app uses:
+   Interactive Diffly demo - powered by the SAME engine the app uses:
    @pierre/trees (FileTree) + @pierre/diffs (FileDiff).
    Clicking a file in the tree renders its real diff. Split/Unified toggle
    re-renders through the diff engine. Loaded as a lazy chunk.
@@ -196,7 +196,7 @@ export function mountDemo(root) {
 
   if (!treeHost || !diffHost) return
 
-  // On narrow screens the tree is hidden and a split diff is cramped — start
+  // On narrow screens the tree is hidden and a split diff is cramped - start
   // unified there so the demo reads cleanly on phones.
   const compact =
     typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 640px)').matches
@@ -236,7 +236,7 @@ export function mountDemo(root) {
     renderDiff()
   }
 
-  // File tree (left) — real @pierre/trees with git-status badges
+  // File tree (left) - real @pierre/trees with git-status badges
   const tree = new FileTree({
     paths: FILES.map((f) => f.path),
     initialExpansion: 'open',
@@ -272,4 +272,42 @@ export function mountDemo(root) {
     fileDiff.cleanUp?.()
     tree.cleanUp?.()
   }
+}
+
+/* ---- secondary demo: a real file tree for the "folder trees" feature card -- */
+const FOLDER_PATHS = [
+  'src/App.svelte',
+  'src/main.ts',
+  'src/lib/api.ts',
+  'src/lib/compare/CompareViewer.svelte',
+  'src/lib/compare/DiffView.svelte',
+  'src/lib/theme/index.ts',
+  'src/legacy/old-diff.ts',
+  'README.md',
+  'package.json',
+]
+
+const FOLDER_STATUS = [
+  { path: 'src/App.svelte', status: 'modified' },
+  { path: 'src/lib/api.ts', status: 'modified' },
+  { path: 'src/lib/compare/DiffView.svelte', status: 'added' },
+  { path: 'src/legacy/old-diff.ts', status: 'deleted' },
+  { path: 'README.md', status: 'modified' },
+]
+
+export function mountFolderTree(el) {
+  if (!el) return
+  const tree = new FileTree({
+    paths: FOLDER_PATHS,
+    initialExpansion: 'open',
+    initialSelectedPaths: ['src/lib/api.ts'],
+    initialVisibleRowCount: 12,
+    search: false,
+    icons: { set: 'complete', colored: true },
+    gitStatus: FOLDER_STATUS,
+    unsafeCSS: TREE_CSS,
+  })
+  tree.render({ containerWrapper: el })
+  el.classList.add('demo--ready')
+  return () => tree.cleanUp?.()
 }

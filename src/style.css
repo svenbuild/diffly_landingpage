@@ -1,5 +1,5 @@
 /* =========================================================================
-   Diffly — landing page
+   Diffly - landing page
    Design tokens lifted from the app (GitHub-dark, blue accent, diff red/green)
    ========================================================================= */
 
@@ -109,49 +109,16 @@ img {
 }
 
 /* =========================================================================
-   Atmosphere — grid, glow, grain
+   Atmosphere - grid, glow, grain
    ========================================================================= */
-.bg-grid,
-.bg-glow,
-.bg-noise {
+.bg-glow {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: -1;
-}
-
-.bg-grid {
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 35%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 35%, transparent 80%);
-}
-
-.bg-glow {
   background:
-    radial-gradient(60% 50% at 50% -8%, rgba(47, 129, 247, 0.22), transparent 70%),
-    radial-gradient(40% 40% at 85% 8%, rgba(46, 160, 67, 0.08), transparent 70%),
-    radial-gradient(40% 40% at 12% 12%, rgba(248, 81, 73, 0.06), transparent 70%);
-  animation: glowDrift 18s ease-in-out infinite alternate;
-}
-
-@keyframes glowDrift {
-  0% {
-    transform: translate3d(-2%, 0, 0) scale(1);
-    opacity: 0.9;
-  }
-  100% {
-    transform: translate3d(3%, 1.5%, 0) scale(1.08);
-    opacity: 1;
-  }
-}
-
-.bg-noise {
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    radial-gradient(55% 45% at 50% -10%, rgba(47, 129, 247, 0.15), transparent 70%),
+    radial-gradient(35% 35% at 88% 4%, rgba(46, 160, 67, 0.05), transparent 70%);
 }
 
 /* =========================================================================
@@ -247,7 +214,7 @@ img {
 }
 
 /* App-native primary: flat solid accent with dark ink, like Diffly's own
-   primary control — crisp rather than a glossy gradient, but still loud. */
+   primary control - crisp rather than a glossy gradient, but still loud. */
 .btn-primary {
   background: var(--accent);
   color: #07111f;
@@ -391,53 +358,6 @@ img {
   text-align: center;
 }
 
-.announce {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 6px 6px 8px;
-  margin-bottom: 30px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.025);
-  font-size: 13.5px;
-  color: var(--muted);
-  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
-}
-
-.announce:hover {
-  border-color: var(--border-strong);
-  transform: translateY(-1px);
-}
-
-.announce-tag {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent-strong);
-  background: var(--accent-soft);
-  border-radius: 999px;
-  padding: 3px 9px;
-}
-
-.announce-arrow {
-  color: var(--faint);
-  transition: transform 0.2s var(--ease);
-}
-
-.announce:hover .announce-arrow {
-  transform: translateX(3px);
-  color: var(--text);
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  letter-spacing: 0.02em;
-  color: var(--teal);
-  margin: 0 0 22px;
-}
-
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(38px, 7vw, 76px);
@@ -493,7 +413,7 @@ img {
   color: var(--add);
 }
 
-/* intra-line (word-level) change highlight — the headline is itself a diff */
+/* intra-line (word-level) change highlight - the headline is itself a diff */
 .diff-text .word {
   padding: 0 0.14em;
   border-radius: 6px;
@@ -528,22 +448,6 @@ img {
   flex-wrap: wrap;
 }
 
-.hero-meta {
-  margin: 22px 0 0;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--faint);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.hero-meta .sep {
-  opacity: 0.4;
-}
-
 .dot {
   width: 7px;
   height: 7px;
@@ -556,7 +460,7 @@ img {
   box-shadow: 0 0 8px var(--add);
 }
 /* =========================================================================
-   Live demo window — real @pierre/trees + @pierre/diffs engine
+   Live demo window - real @pierre/trees + @pierre/diffs engine
    ========================================================================= */
 .hero-window {
   margin-top: 64px;
@@ -882,61 +786,20 @@ img {
   align-items: center;
 }
 
-.mini-tree {
-  list-style: none;
-  margin: 0;
-  padding: 16px;
+/* real @pierre/trees file tree inside the folder-trees card */
+.card-tree {
+  position: relative;
   width: 100%;
+  height: 232px;
   border: 1px solid var(--border-subtle);
   border-radius: 10px;
-  background: var(--bg-app);
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  line-height: 1.9;
+  overflow: hidden;
+  background: #0f141b;
 }
 
-.mt-dir {
-  color: var(--muted);
-}
-
-.mt-file {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--text);
-  padding-left: 14px;
-}
-
-.mt-indent {
-  padding-left: 14px;
-}
-.mt-indent2 {
-  padding-left: 28px;
-}
-
-.b {
-  font-size: 10px;
-  font-weight: 600;
-  width: 15px;
-  height: 15px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  font-style: normal;
-}
-
-.b--m {
-  color: var(--teal);
-  background: rgba(110, 166, 166, 0.16);
-}
-.b--a {
-  color: var(--add-text);
-  background: var(--add-bg);
-}
-.b--d {
-  color: var(--del-text);
-  background: var(--del-bg);
+.card-tree > *:not(.demo-skel) {
+  width: 100%;
+  height: 100%;
 }
 
 .card-visual--update {
@@ -980,60 +843,6 @@ img {
   padding: 6px 12px;
   border-radius: 8px;
   cursor: pointer;
-}
-
-/* =========================================================================
-   Workflow steps
-   ========================================================================= */
-.steps {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  counter-reset: step;
-}
-
-.step {
-  position: relative;
-  padding: 28px 26px;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  background: var(--panel);
-  overflow: hidden;
-}
-
-.step::after {
-  content: '';
-  position: absolute;
-  left: 26px;
-  right: 26px;
-  top: 0;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent), transparent);
-  opacity: 0.5;
-}
-
-.step-no {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--accent-strong);
-  background: var(--accent-soft);
-  padding: 3px 9px;
-  border-radius: 7px;
-}
-
-.step h3 {
-  font-size: 18px;
-  margin: 18px 0 8px;
-}
-
-.step p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 15px;
 }
 
 /* =========================================================================
@@ -1239,19 +1048,6 @@ img {
   overflow: hidden;
 }
 
-.download-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(ellipse 70% 70% at 50% 0%, #000, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 0%, #000, transparent 70%);
-  pointer-events: none;
-}
-
 .download-card > * {
   position: relative;
 }
@@ -1449,12 +1245,7 @@ img {
     grid-column: span 1;
     grid-template-columns: 1fr;
   }
-  .steps {
-    grid-template-columns: 1fr;
-  }
   .footer-base {
-    flex-direction: column;
-    gap: 10px;
     text-align: center;
   }
 }
