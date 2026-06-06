@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0d1117" />
+
+    <title>Diffly — See every change. Merge with confidence.</title>
+    <meta
+      name="description"
+      content="Diffly is a fast, local-first desktop diff tool for Windows. Compare files and whole folder trees side by side or unified, merge hunks selectively, and stay smooth on huge diffs."
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Diffly — See every change. Merge with confidence." />
+    <meta
+      property="og:description"
+      content="A fast, local desktop diff tool for files and folders. Side-by-side or unified, selective merge, image & hex previews — built for huge diffs."
+    />
+    <meta property="og:image" content="/diffly-mark.png" />
+
+    <!-- Fonts: distinctive display + refined body + on-brand mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700,500&f[]=satoshi@400,500,700,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Atmosphere layers -->
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-glow" aria-hidden="true"></div>
+    <div class="bg-noise" aria-hidden="true"></div>
+
+    <!-- ============================ NAV ============================ -->
+    <header class="nav" id="nav">
+      <div class="nav-inner">
+        <a class="brand" href="#top" aria-label="Diffly home">
+          <img class="brand-mark" src="/diffly-mark.png" alt="" width="28" height="28" />
+          <span class="brand-name">Diffly</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#features">Features</a>
+          <a href="#workflow">How it works</a>
+          <a href="#performance">Performance</a>
+          <a href="#download">Download</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a
+            class="ghost-link"
+            href="https://github.com/svenbuild/diffly"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <a class="btn btn-primary btn-sm" data-download href="https://github.com/svenbuild/diffly/releases/latest">
+            <span class="btn-label">Download</span>
+            <svg class="btn-arrow" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 13.5h10" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ============================ HERO ============================ -->
+      <section class="hero">
+        <a class="announce reveal" href="https://github.com/svenbuild/diffly/blob/master/CHANGELOG.md" target="_blank" rel="noopener">
+          <span class="announce-tag">v0.2.0</span>
+          <span class="announce-text">Now on a native Electron runtime — read the changelog</span>
+          <span class="announce-arrow">→</span>
+        </a>
+
+        <p class="eyebrow reveal" data-delay="1">// Local-first diff tool for Windows</p>
+
+        <h1 class="hero-title">
+          <span class="diff-line diff-line--del reveal" data-delay="2">
+            <span class="diff-gutter">−</span>
+            <span class="diff-text">Guessing what changed.</span>
+          </span>
+          <span class="diff-line diff-line--add reveal" data-delay="3">
+            <span class="diff-gutter">+</span>
+            <span class="diff-text">Seeing exactly what changed.</span>
+          </span>
+        </h1>
+
+        <p class="hero-sub reveal" data-delay="4">
+          Diffly is a fast desktop tool for comparing files and entire folder trees.
+          Side-by-side or unified, with selective hunk merging, image &amp; hex previews,
+          and rendering that stays smooth on enormous diffs.
+        </p>
+
+        <div class="hero-cta reveal" data-delay="5">
+          <a class="btn btn-primary btn-lg" data-download href="https://github.com/svenbuild/diffly/releases/latest">
+            <svg class="btn-arrow" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 13.5h10" />
+            </svg>
+            <span class="btn-label">Download for Windows</span>
+          </a>
+          <a class="btn btn-ghost btn-lg" href="https://github.com/svenbuild/diffly" target="_blank" rel="noopener">
+            <span class="btn-label">View source</span>
+          </a>
+        </div>
+
+        <p class="hero-meta reveal" data-delay="6">
+          <span class="dot dot--add"></span> Free &amp; open source · MIT
+          <span class="sep">·</span>
+          <span data-version>v0.2.0</span>
+          <span class="sep">·</span>
+          Windows installer &amp; portable
+        </p>
+
+        <!-- App window mock -->
+        <div class="hero-window reveal" data-delay="7">
+          <div class="win" aria-hidden="true">
+            <div class="win-titlebar">
+              <div class="win-id">
+                <img src="/diffly-mark.png" alt="" width="18" height="18" />
+                <span class="win-app">Diffly</span>
+                <span class="win-crumb">
+                  <span>src</span><span class="crumb-sep">›</span><span>diff</span><span class="crumb-sep">›</span><span class="crumb-active">engine.ts</span>
+                </span>
+              </div>
+              <div class="win-tools">
+                <div class="seg">
+                  <button class="seg-btn is-active">Split</button>
+                  <button class="seg-btn">Unified</button>
+                </div>
+                <button class="win-merge">
+                  Merge selected
+                  <span class="win-merge-arrow">→</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="win-body">
+              <!-- file tree -->
+              <aside class="win-tree">
+                <div class="tree-head">Changed files <span class="tree-count">6</span></div>
+                <ul class="tree">
+                  <li class="tree-dir">▾ diff</li>
+                  <li class="tree-file is-active"><span class="ti">engine.ts</span><span class="badge badge--m">M</span></li>
+                  <li class="tree-file"><span class="ti">painter.ts</span><span class="badge badge--m">M</span></li>
+                  <li class="tree-file"><span class="ti">lcs.ts</span><span class="badge badge--a">A</span></li>
+                  <li class="tree-dir">▾ ui</li>
+                  <li class="tree-file"><span class="ti">Pane.svelte</span><span class="badge badge--m">M</span></li>
+                  <li class="tree-file"><span class="ti">Legacy.svelte</span><span class="badge badge--d">D</span></li>
+                  <li class="tree-file tree-file--root"><span class="ti">README.md</span><span class="badge badge--m">M</span></li>
+                </ul>
+              </aside>
+
+              <!-- diff panes -->
+              <div class="win-diff">
+                <div class="pane pane--old">
+                  <div class="pane-head"><span class="pane-tag pane-tag--old">Before</span> engine.ts</div>
+                  <div class="code">
+                    <div class="row"><span class="ln">1</span><span class="mk"></span><code><span class="k">export</span> <span class="k">function</span> <span class="fn">diff</span>(a, b) {</code></div>
+                    <div class="row"><span class="ln">2</span><span class="mk"></span><code>  <span class="k">const</span> out = []</code></div>
+                    <div class="row row--del"><span class="ln">3</span><span class="mk mk--del">−</span><code>  <span class="k">for</span> (<span class="k">let</span> i = <span class="n">0</span>; i &lt; a.length; i++) {</code></div>
+                    <div class="row row--del"><span class="ln">4</span><span class="mk mk--del">−</span><code>    out.<span class="fn">push</span>(a[i])</code></div>
+                    <div class="row"><span class="ln">5</span><span class="mk"></span><code>  }</code></div>
+                    <div class="row"><span class="ln">6</span><span class="mk"></span><code>  <span class="k">return</span> out</code></div>
+                    <div class="row"><span class="ln">7</span><span class="mk"></span><code>}</code></div>
+                    <div class="row row--gap"><span class="ln"></span><span class="mk"></span><code></code></div>
+                    <div class="row"><span class="ln">8</span><span class="mk"></span><code><span class="cm">// untouched helpers below</span></code></div>
+                  </div>
+                </div>
+
+                <div class="pane pane--new">
+                  <div class="pane-head"><span class="pane-tag pane-tag--new">After</span> engine.ts</div>
+                  <div class="code">
+                    <div class="row"><span class="ln">1</span><span class="mk"></span><code><span class="k">export</span> <span class="k">function</span> <span class="fn">diff</span>(a, b, opts = {}) {</code></div>
+                    <div class="row"><span class="ln">2</span><span class="mk"></span><code>  <span class="k">const</span> out = []</code></div>
+                    <div class="row row--add"><span class="ln">3</span><span class="mk mk--add">+</span><code>  <span class="k">const</span> lcs = <span class="fn">computeLcs</span>(a, b)</code></div>
+                    <div class="row row--add"><span class="ln">4</span><span class="mk mk--add">+</span><code>  <span class="k">for</span> (<span class="k">const</span> row <span class="k">of</span> lcs) {</code></div>
+                    <div class="row row--add"><span class="ln">5</span><span class="mk mk--add">+</span><code>    out.<span class="fn">push</span>(<span class="fn">paint</span>(row, opts))</code></div>
+                    <div class="row"><span class="ln">6</span><span class="mk"></span><code>  }</code></div>
+                    <div class="row"><span class="ln">7</span><span class="mk"></span><code>  <span class="k">return</span> out</code></div>
+                    <div class="row"><span class="ln">8</span><span class="mk"></span><code>}</code></div>
+                    <div class="row"><span class="ln">9</span><span class="mk"></span><code><span class="cm">// untouched helpers below</span></code></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="win-status">
+              <span class="stat stat--add">+128</span>
+              <span class="stat stat--del">−42</span>
+              <span class="status-sep">·</span>
+              <span>6 files changed</span>
+              <span class="status-spacer"></span>
+              <span class="status-local"><span class="dot dot--add"></span> Local · nothing leaves your machine</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ STAT STRIP ============================ -->
+      <section class="strip reveal">
+        <div class="strip-inner">
+          <div class="strip-item"><span class="strip-k">Side-by-side</span><span class="strip-v">&amp; unified views</span></div>
+          <div class="strip-item"><span class="strip-k">Folder trees</span><span class="strip-v">directory-aware diff</span></div>
+          <div class="strip-item"><span class="strip-k">Selective merge</span><span class="strip-v">hunk by hunk</span></div>
+          <div class="strip-item"><span class="strip-k">Virtualized</span><span class="strip-v">smooth on huge diffs</span></div>
+          <div class="strip-item"><span class="strip-k">100% local</span><span class="strip-v">no account, no cloud</span></div>
+        </div>
+      </section>
+
+      <!-- ============================ FEATURES ============================ -->
+      <section class="section" id="features">
+        <header class="section-head reveal">
+          <p class="section-eyebrow"><span class="plus">+</span> Features</p>
+          <h2 class="section-title">Everything you need to read a diff — nothing you don't.</h2>
+          <p class="section-lead">
+            Built for the moments that actually matter: scanning a big changeset, finding the one
+            line that broke, and merging only what you want.
+          </p>
+        </header>
+
+        <div class="bento">
+          <!-- big: directory diff -->
+          <article class="card card--wide reveal">
+            <div class="card-body">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2.5h7A1.5 1.5 0 0 1 19 9v8.5A1.5 1.5 0 0 1 17.5 19h-13A1.5 1.5 0 0 1 3 17.5z"/></svg>
+              </div>
+              <h3>Compare whole folder trees</h3>
+              <p>
+                Point Diffly at two directories and browse every changed entry with
+                directory-aware filtering. Files load one at a time while the rest stream into a
+                background cache.
+              </p>
+            </div>
+            <div class="card-visual">
+              <ul class="mini-tree">
+                <li class="mt-dir">▾ src</li>
+                <li class="mt-file"><span>App.svelte</span><i class="b b--m">M</i></li>
+                <li class="mt-file"><span>router.ts</span><i class="b b--a">A</i></li>
+                <li class="mt-dir mt-indent">▾ lib</li>
+                <li class="mt-file mt-indent2"><span>api.ts</span><i class="b b--m">M</i></li>
+                <li class="mt-file mt-indent2"><span>old.ts</span><i class="b b--d">D</i></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- merge -->
+          <article class="card reveal">
+            <div class="card-body">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v8a4 4 0 0 0 4 4h6"/><circle cx="7" cy="4" r="2"/><circle cx="7" cy="20" r="2"/><circle cx="19" cy="16" r="2"/><path d="M7 6v12"/></svg>
+              </div>
+              <h3>Merge hunks selectively</h3>
+              <p>Resolve text differences your way — pick individual hunks to bring across instead of accepting an entire file.</p>
+            </div>
+          </article>
+
+          <!-- views -->
+          <article class="card reveal">
+            <div class="card-body">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M12 4v16"/></svg>
+              </div>
+              <h3>Split &amp; unified views</h3>
+              <p>Switch between side-by-side and inline at a keystroke. Panes stay synced as you scroll.</p>
+            </div>
+          </article>
+
+          <!-- binary / image -->
+          <article class="card reveal">
+            <div class="card-body">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="10" r="1.5"/><path d="m4 17 5-4 4 3 3-2 4 3"/></svg>
+              </div>
+              <h3>Images &amp; binaries</h3>
+              <p>Preview images visually and inspect binary files in a virtualized hex view — no external tools.</p>
+            </div>
+          </article>
+
+          <!-- session -->
+          <article class="card reveal">
+            <div class="card-body">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v4h4"/><path d="M12 8v4l3 2"/></svg>
+              </div>
+              <h3>Picks up where you left off</h3>
+              <p>Your compare session and app state persist locally, so a restart never loses your place.</p>
+            </div>
+          </article>
+
+          <!-- updates: wide -->
+          <article class="card card--wide reveal">
+            <div class="card-body">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v10"/><path d="m8 9 4 4 4-4"/><path d="M5 16a7 7 0 0 0 14 0"/></svg>
+              </div>
+              <h3>Signed updates, on your terms</h3>
+              <p>
+                Diffly checks for signed releases published straight from GitHub. Updates are
+                verified and explicit — never silent, never surprising.
+              </p>
+            </div>
+            <div class="card-visual card-visual--update">
+              <div class="update-chip">
+                <span class="dot dot--add"></span>
+                <div>
+                  <strong data-version>v0.2.0</strong>
+                  <span>verified · ready to install</span>
+                </div>
+                <button class="update-go">Update</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============================ WORKFLOW ============================ -->
+      <section class="section section--tight" id="workflow">
+        <header class="section-head reveal">
+          <p class="section-eyebrow"><span class="plus">+</span> How it works</p>
+          <h2 class="section-title">Three steps, then you're reading diffs.</h2>
+        </header>
+
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step-no">01</span>
+            <h3>Pick two targets</h3>
+            <p>Choose two files or two folders — local paths, nothing to upload or configure.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-no">02</span>
+            <h3>Browse the changes</h3>
+            <p>Scan changed entries in the sidebar and open them side-by-side or unified.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-no">03</span>
+            <h3>Merge &amp; save</h3>
+            <p>Bring across the hunks you want and write the result — deterministically.</p>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ============================ PERFORMANCE ============================ -->
+      <section class="section split" id="performance">
+        <div class="split-text reveal">
+          <p class="section-eyebrow"><span class="plus">+</span> Performance</p>
+          <h2 class="section-title">Built to stay smooth when diffs get big.</h2>
+          <p class="section-lead">
+            Large text diffs, sprawling directory trees, and binary previews all render through
+            virtualization, so scrolling stays fluid and the UI never blocks while results stream in.
+          </p>
+          <ul class="check-list">
+            <li>Virtual rendering for text, directory &amp; hex views</li>
+            <li>Bounded background preloading — no runaway memory</li>
+            <li>Scroll anchoring &amp; synced panes that don't jump</li>
+            <li>Fails closed and visibly — your state is never silently lost</li>
+          </ul>
+        </div>
+
+        <div class="split-visual reveal">
+          <div class="perf-card">
+            <div class="perf-head">
+              <span>engine.ts</span>
+              <span class="perf-meta">14,302 lines</span>
+            </div>
+            <div class="perf-bars">
+              <span class="pb pb--ctx"></span>
+              <span class="pb pb--add" style="--w: 64%"></span>
+              <span class="pb pb--ctx"></span>
+              <span class="pb pb--del" style="--w: 38%"></span>
+              <span class="pb pb--add" style="--w: 52%"></span>
+              <span class="pb pb--ctx"></span>
+              <span class="pb pb--ctx"></span>
+              <span class="pb pb--add" style="--w: 80%"></span>
+              <span class="pb pb--del" style="--w: 28%"></span>
+              <span class="pb pb--ctx"></span>
+            </div>
+            <div class="perf-foot">
+              <div class="perf-stat"><strong>60</strong><span>fps scroll</span></div>
+              <div class="perf-stat"><strong>0</strong><span>blocked frames</span></div>
+              <div class="perf-stat"><strong>&lt;1<small>ms</small></strong><span>row paint</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ PRIVACY BAND ============================ -->
+      <section class="band reveal">
+        <div class="band-inner">
+          <div class="band-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h2>Your code never leaves your machine.</h2>
+          <p>
+            Diffly is a local desktop app. No accounts, no telemetry pipelines, no uploading files
+            to a server to compare them. Everything runs on your hardware — which is exactly how
+            diffing sensitive code should work.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================ DOWNLOAD ============================ -->
+      <section class="section download" id="download">
+        <div class="download-card reveal">
+          <p class="section-eyebrow"><span class="plus">+</span> Get Diffly</p>
+          <h2 class="download-title">Download Diffly for Windows</h2>
+          <p class="download-sub">
+            The latest signed release — <span data-version>v0.2.0</span>. Free, open source, and
+            ready in seconds.
+          </p>
+
+          <div class="download-cta">
+            <a class="btn btn-primary btn-lg" data-download href="https://github.com/svenbuild/diffly/releases/latest">
+              <svg class="btn-arrow" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 13.5h10" />
+              </svg>
+              <span class="btn-label" data-download-label>Download installer (.exe)</span>
+            </a>
+            <a class="btn btn-ghost btn-lg" href="https://github.com/svenbuild/diffly/releases" target="_blank" rel="noopener">
+              <span class="btn-label">All releases</span>
+            </a>
+          </div>
+
+          <ul class="download-facts">
+            <li><span class="plus">+</span> Windows installer &amp; portable build</li>
+            <li><span class="plus">+</span> MIT licensed &amp; fully open source</li>
+            <li><span class="plus">+</span> Signed updates from GitHub releases</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================ FOOTER ============================ -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="brand" href="#top">
+            <img class="brand-mark" src="/diffly-mark.png" alt="" width="26" height="26" />
+            <span class="brand-name">Diffly</span>
+          </a>
+          <p class="footer-tag">A desktop diff tool for files &amp; folders. Built with Svelte, TypeScript &amp; Electron.</p>
+        </div>
+
+        <nav class="footer-cols" aria-label="Footer">
+          <div class="footer-col">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#workflow">How it works</a>
+            <a href="#download" data-download-soft>Download</a>
+          </div>
+          <div class="footer-col">
+            <h4>Project</h4>
+            <a href="https://github.com/svenbuild/diffly" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://github.com/svenbuild/diffly/blob/master/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a>
+            <a href="https://github.com/svenbuild/diffly/releases" target="_blank" rel="noopener">Releases</a>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <a href="https://github.com/svenbuild/diffly/blob/master/LICENSE" target="_blank" rel="noopener">MIT License</a>
+            <a href="https://github.com/svenbuild/diffly/blob/master/SECURITY.md" target="_blank" rel="noopener">Security</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-base">
+        <span>© 2026 Sven · Diffly</span>
+        <span class="footer-built"><span class="dot dot--add"></span> Local-first · MIT licensed</span>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

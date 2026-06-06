@@ -1,0 +1,15 @@
+{
+  "name": "diffly-landingpage",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Landing page for Diffly — the desktop diff tool for files and folders.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}
