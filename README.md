@@ -7,6 +7,13 @@ Built as a lightweight static site with [Vite](https://vitejs.dev/) — plain HT
 little vanilla JavaScript, no framework. The design reuses Diffly's own GitHub-dark theme
 (blue accent, diff red/green) so the page matches the app.
 
+The hero contains a **live, interactive demo** driven by the very same engine the desktop app
+uses — [`@pierre/trees`](https://www.npmjs.com/package/@pierre/trees) for the file tree and
+[`@pierre/diffs`](https://www.npmjs.com/package/@pierre/diffs) for the diff view. Clicking a
+file in the tree renders its real diff; the Split / Unified toggle re-renders through the diff
+engine. The demo code lives in `src/demo.js` and is loaded as a separate chunk so initial paint
+stays fast.
+
 ## Develop
 
 ```bash

@@ -62,6 +62,18 @@ if (heroWindow) {
 }
 
 /* -------------------------------------------------------------------------
+   Live demo — lazy chunk that boots the real @pierre diff/tree engine.
+   Loaded immediately (it is the hero centerpiece) but kept out of the main
+   bundle so initial paint stays fast.
+   ------------------------------------------------------------------------- */
+const demoRoot = document.querySelector('[data-demo]')
+if (demoRoot) {
+  import('./demo.js')
+    .then((m) => m.mountDemo(demoRoot))
+    .catch((err) => console.warn('Diffly demo failed to load —', err))
+}
+
+/* -------------------------------------------------------------------------
    Wire the download buttons to the latest full release's installer .exe.
    Fetches the GitHub release at runtime so links never go stale on a new
    version. Falls back gracefully to the release page if the API is
