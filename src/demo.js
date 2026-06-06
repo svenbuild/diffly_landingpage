@@ -119,7 +119,7 @@ A fast desktop diff viewer for files and folders.
 ## Features
 - Compare files and whole directory trees
 - Side-by-side and unified views
-- Selective hunk merging
+- Syntax highlighting, light & dark themes
 `,
   },
 ]
