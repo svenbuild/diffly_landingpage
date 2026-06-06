@@ -12,8 +12,8 @@ const FILES = [
   {
     path: 'src/diff/engine.ts',
     status: 'modified',
-    add: 5,
-    del: 3,
+    add: 6,
+    del: 4,
     before: `import { tokenize } from './lexer'
 
 export function diff(a: string, b: string) {
@@ -22,6 +22,14 @@ export function diff(a: string, b: string) {
     out.push({ type: 'context', text: a[i] })
   }
   return out
+}
+
+export function format(lines: Line[]) {
+  return lines.map((l) => l.text).join('\\n')
+}
+
+export function isEmpty(d: Diff) {
+  return d.lines.length === 0
 }
 `,
     after: `import { tokenize } from './lexer'
@@ -34,6 +42,14 @@ export function diff(a: string, b: string, opts: DiffOptions = {}) {
     out.push(paint(row, opts))
   }
   return out
+}
+
+export function format(lines: Line[]) {
+  return lines.map((l) => l.text).join('\\n')
+}
+
+export function isEmpty(d: Diff) {
+  return d.changed === 0
 }
 `,
   },
@@ -62,6 +78,21 @@ export function computeLcs(a: Token[], b: Token[]): Row[] {
 `,
   },
   {
+    path: 'src/diff/lexer.ts',
+    status: 'modified',
+    add: 3,
+    del: 2,
+    before: `export function tokenize(src: string): Token[] {
+  return src.split(/\\b/).map((t) => new Token(t))
+}
+`,
+    after: `export function tokenize(src: string, opts: LexOptions = {}): Token[] {
+  const parts = src.split(opts.boundary ?? /\\b/)
+  return parts.map((t) => new Token(t, opts))
+}
+`,
+  },
+  {
     path: 'src/ui/Pane.svelte',
     status: 'modified',
     add: 6,
@@ -84,6 +115,29 @@ export function computeLcs(a: Token[], b: Token[]): Row[] {
     <span class="gutter">{line.no}</span>
     {line.text}
   </div>
+{/each}
+`,
+  },
+  {
+    path: 'src/ui/Tree.svelte',
+    status: 'modified',
+    add: 4,
+    del: 2,
+    before: `<script lang="ts">
+  export let nodes: Node[] = []
+</script>
+
+{#each nodes as node}
+  <TreeRow {node} />
+{/each}
+`,
+    after: `<script lang="ts">
+  export let nodes: Node[] = []
+  export let selected: string | null = null
+</script>
+
+{#each nodes as node (node.path)}
+  <TreeRow {node} active={node.path === selected} />
 {/each}
 `,
   },
@@ -192,9 +246,12 @@ export function mountDemo(root) {
   const addEl = root.querySelector('[data-demo-add]')
   const delEl = root.querySelector('[data-demo-del]')
   const tagEl = root.querySelector('[data-demo-tag]')
+  const filesEl = root.querySelector('[data-demo-files]')
   const viewButtons = Array.from(root.querySelectorAll('[data-view]'))
 
   if (!treeHost || !diffHost) return
+
+  if (filesEl) filesEl.textContent = `${FILES.length} files changed`
 
   // On narrow screens the tree is hidden and a split diff is cramped - start
   // unified there so the demo reads cleanly on phones.

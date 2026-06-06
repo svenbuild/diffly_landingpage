@@ -593,7 +593,7 @@ img {
 .demo-body {
   display: grid;
   grid-template-columns: 232px 1fr;
-  height: 440px;
+  height: 392px;
 }
 
 .demo-tree {
