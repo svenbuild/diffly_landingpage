@@ -463,12 +463,12 @@ img {
    Live demo window - real @pierre/trees + @pierre/diffs engine
    ========================================================================= */
 .hero-window {
-  margin-top: 64px;
+  margin-top: 56px;
   perspective: 1800px;
 }
 
 .demo {
-  max-width: 1000px;
+  max-width: 1060px;
   margin: 0 auto;
   text-align: left;
   border: 1px solid var(--border-strong);
@@ -592,8 +592,8 @@ img {
 
 .demo-body {
   display: grid;
-  grid-template-columns: 232px 1fr;
-  height: 392px;
+  grid-template-columns: 244px 1fr;
+  height: 480px;
 }
 
 .demo-tree {

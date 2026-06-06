@@ -3,17 +3,20 @@
    @pierre/trees (FileTree) + @pierre/diffs (FileDiff).
    Clicking a file in the tree renders its real diff. Split/Unified toggle
    re-renders through the diff engine. Loaded as a lazy chunk.
+
+   Each file is intentionally long enough to fill the (large) diff pane, so
+   the window stays full whatever you click and bleeds past the fold as a
+   scroll cue.
    ========================================================================= */
 import { FileTree } from '@pierre/trees'
 import { FileDiff } from '@pierre/diffs'
 
-/* ---- demo changeset: each file is long enough to fill the diff pane ------ */
 const FILES = [
   {
     path: 'src/diff/engine.ts',
     status: 'modified',
-    add: 6,
-    del: 4,
+    add: 8,
+    del: 5,
     before: `import { tokenize } from './lexer'
 
 export function diff(a: string, b: string) {
@@ -22,6 +25,10 @@ export function diff(a: string, b: string) {
     out.push({ type: 'context', text: a[i] })
   }
   return out
+}
+
+function paint(line: string): Line {
+  return { type: 'context', text: line }
 }
 
 export function format(lines: Line[]) {
@@ -42,6 +49,11 @@ export function diff(a: string, b: string, opts: DiffOptions = {}) {
     out.push(paint(row, opts))
   }
   return out
+}
+
+function paint(row: Row, opts: DiffOptions): Line {
+  if (row.type === 'context') return { type: 'context', text: row.text }
+  return { type: row.type, text: row.text, hl: opts.intraline }
 }
 
 export function format(lines: Line[]) {
@@ -95,7 +107,7 @@ function backtrack(a: Token[], b: Token[], dp: Int32Array[]): Row[] {
     path: 'src/diff/lexer.ts',
     status: 'modified',
     add: 5,
-    del: 3,
+    del: 2,
     before: `export interface Token {
   text: string
   kind: TokenKind
@@ -113,6 +125,8 @@ function classify(t: string): TokenKind {
   if (/^\\d+$/.test(t)) return 'number'
   return 'text'
 }
+
+export const KINDS = ['text', 'number'] as const
 `,
     after: `export interface Token {
   text: string
@@ -131,8 +145,11 @@ export function tokenize(src: string, opts: LexOptions = {}): Token[] {
 function classify(t: string): TokenKind {
   if (/^\\d+$/.test(t)) return 'number'
   if (/^["']/.test(t)) return 'string'
+  if (/^\\s+$/.test(t)) return 'space'
   return 'text'
 }
+
+export const KINDS = ['text', 'number', 'string', 'space'] as const
 `,
   },
   {
@@ -184,7 +201,7 @@ export const saveSession = debounce((s: Session) => {
   {
     path: 'src/ui/Pane.svelte',
     status: 'modified',
-    add: 4,
+    add: 5,
     del: 2,
     before: `<script lang="ts">
   export let lines: Line[] = []
@@ -201,6 +218,8 @@ export const saveSession = debounce((s: Session) => {
 
 <style>
   .pane { overflow: auto; }
+  .row { display: flex; gap: 8px; }
+  .no { color: var(--muted); }
 </style>
 `,
     after: `<script lang="ts">
@@ -220,6 +239,8 @@ export const saveSession = debounce((s: Session) => {
 <style>
   .pane { overflow: auto; }
   .pane.wrap .text { white-space: pre-wrap; }
+  .row { display: flex; gap: 8px; }
+  .no { color: var(--muted); user-select: none; }
 </style>
 `,
   },
@@ -239,6 +260,11 @@ export const saveSession = debounce((s: Session) => {
     </li>
   {/each}
 </ul>
+
+<style>
+  .tree { list-style: none; padding: 0; }
+  li { line-height: 22px; }
+</style>
 `,
     after: `<script lang="ts">
   export let nodes: Node[] = []
@@ -252,25 +278,36 @@ export const saveSession = debounce((s: Session) => {
     </li>
   {/each}
 </ul>
+
+<style>
+  .tree { list-style: none; padding: 0; }
+  li { line-height: 22px; }
+  li.active { background: var(--accent-soft); }
+</style>
 `,
   },
   {
     path: 'src/legacy/naive-diff.ts',
     status: 'deleted',
     add: 0,
-    del: 16,
+    del: 22,
     before: `// Superseded by diff/engine.ts
 export function naiveDiff(a: string, b: string) {
   if (a === b) return []
-  const out = []
+  const out: Change[] = []
   const al = a.split('\\n')
   const bl = b.split('\\n')
-  for (let i = 0; i < Math.max(al.length, bl.length); i++) {
-    if (al[i] !== bl[i]) {
-      out.push({ removed: al[i], added: bl[i] })
-    }
+  const len = Math.max(al.length, bl.length)
+  for (let i = 0; i < len; i++) {
+    if (al[i] === bl[i]) continue
+    if (al[i] !== undefined) out.push({ removed: al[i] })
+    if (bl[i] !== undefined) out.push({ added: bl[i] })
   }
   return out
+}
+
+export function isNoop(changes: Change[]) {
+  return changes.length === 0
 }
 
 export const NAIVE = true
@@ -280,7 +317,7 @@ export const NAIVE = true
   {
     path: 'README.md',
     status: 'modified',
-    add: 9,
+    add: 12,
     del: 2,
     before: `# Diffly
 
@@ -304,27 +341,36 @@ A fast desktop diff viewer for files and folders.
 - Session restore on restart
 
 ## Install
-Download the latest release for Windows.
+Download the latest release from GitHub.
+
+## Develop
+Install dependencies with npm install, then
+run the desktop app with npm run electron:dev.
 
 ## Build
-Run the desktop app with npm run electron:dev.
+Package a Windows build with npm run package.
 `,
   },
   {
     path: 'package.json',
     status: 'modified',
-    add: 4,
+    add: 5,
     del: 1,
     before: `{
   "name": "diffly",
   "version": "0.1.5",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build"
   },
   "dependencies": {
     "electron-updater": "^6.6.2"
+  },
+  "devDependencies": {
+    "electron": "^42.3.3",
+    "vite": "^7.3.1"
   }
 }
 `,
@@ -332,6 +378,7 @@ Run the desktop app with npm run electron:dev.
   "name": "diffly",
   "version": "0.2.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",
@@ -341,6 +388,11 @@ Run the desktop app with npm run electron:dev.
     "@pierre/diffs": "^1.2.5",
     "@pierre/trees": "^1.0.0-beta.4",
     "electron-updater": "^6.6.2"
+  },
+  "devDependencies": {
+    "electron": "^42.3.3",
+    "svelte": "^5.45.2",
+    "vite": "^7.3.1"
   }
 }
 `,
@@ -363,8 +415,8 @@ const DIFF_CSS = `
     --diffs-light-bg: #0d1117;
     --diffs-font-family-override: 'JetBrains Mono', ui-monospace, monospace;
     --diffs-header-font-family: 'Satoshi', system-ui, sans-serif;
-    --diffs-font-size: 12.5px;
-    --diffs-line-height: 20px;
+    --diffs-font-size: 13px;
+    --diffs-line-height: 22px;
   }
   *, *::before, *::after { scrollbar-width: none; -ms-overflow-style: none; }
   *::-webkit-scrollbar { width: 0; height: 0; display: none; }
@@ -379,7 +431,7 @@ const TREE_CSS = `
     height: 100%;
     min-height: 0;
     --trees-font-family-override: 'JetBrains Mono', ui-monospace, monospace;
-    --trees-font-size-override: 12.5px;
+    --trees-font-size-override: 13px;
     --trees-bg-override: #0f141b;
     --trees-fg-override: #e6edf3;
     --trees-fg-muted-override: #8b949e;
@@ -393,6 +445,7 @@ const TREE_CSS = `
     --trees-status-deleted-override: #f85149;
     --trees-padding-inline-override: 10px;
   }
+  button[data-type='item'] { min-height: 26px; }
   *, *::before, *::after { scrollbar-width: none; -ms-overflow-style: none; }
   *::-webkit-scrollbar { width: 0; height: 0; display: none; }
 `
@@ -467,7 +520,7 @@ export function mountDemo(root) {
     paths: FILES.map((f) => f.path),
     initialExpansion: 'open',
     initialSelectedPaths: [current],
-    initialVisibleRowCount: 16,
+    initialVisibleRowCount: 18,
     search: false,
     icons: { set: 'complete', colored: true },
     gitStatus: FILES.map((f) => ({ path: f.path, status: f.status })),
