@@ -474,7 +474,10 @@ img {
 }
 
 .diff-line--del .diff-text {
-  color: var(--del-text);
+  color: color-mix(in srgb, var(--del-text) 80%, var(--muted));
+  text-decoration: line-through;
+  text-decoration-color: rgba(248, 81, 73, 0.5);
+  text-decoration-thickness: 2px;
 }
 
 .diff-line--del .diff-gutter {
