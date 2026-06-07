@@ -1,39 +1,50 @@
-# Diffly Landing Page
+# Diffly Landing
 
-Static landing page for [Diffly](https://github.com/svenbuild/diffly).
+Landing page for [Diffly](https://github.com/svenbuild/diffly), a Windows desktop app for comparing files and folders.
 
-Live: https://diffly.net
+**Live site:** https://diffly.net
 
-## Setup
+## Stack
+
+- Vite
+- Plain HTML, CSS, and JavaScript
+- `@pierre/diffs` and `@pierre/trees` for the interactive demo
+
+## Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-The dev server runs on `http://localhost:5180`.
+Vite serves the site at `http://localhost:5180`.
 
 ## Build
 
 ```bash
 npm run build
+```
+
+The static build is generated in `dist/`.
+
+## Preview
+
+```bash
 npm run preview
 ```
 
-The production output is written to `dist/`.
-
-## Project
+## Repository Layout
 
 ```text
-index.html      Page markup
-src/style.css   Styles
-src/main.js     UI behavior and release download link
-src/demo.js     Interactive diff demo
-public/         Static assets
+index.html       Page markup
+src/style.css    Styles
+src/main.js      Navigation, download link, release version
+src/demo.js      Interactive demo
+public/          Static assets
 ```
 
-## Notes
+## Deployment
 
-- The download button resolves the latest Windows installer from the Diffly GitHub release.
-- The page is plain HTML, CSS, and vanilla JavaScript with Vite.
-- Keep deployment secrets and infrastructure notes out of this repository.
+Upload the contents of `dist/` to the production static site.
+
+Keep credentials, server paths, and infrastructure notes out of this repository.
