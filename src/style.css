@@ -1241,12 +1241,14 @@ img {
   .section {
     padding: 84px 22px;
   }
-  .demo-tree {
-    display: none;
-  }
   .demo-body {
     grid-template-columns: 1fr;
-    height: 380px;
+    grid-template-rows: 148px minmax(0, 1fr);
+    height: 560px;
+  }
+  .demo-tree {
+    border-right: 0;
+    border-bottom: 1px solid var(--border-subtle);
   }
   .demo-crumb {
     display: none;
@@ -1269,6 +1271,10 @@ img {
   }
   .hero {
     padding-top: 48px;
+  }
+  .demo-body {
+    grid-template-rows: 136px minmax(0, 1fr);
+    height: 520px;
   }
   .diff-line {
     gap: 10px;

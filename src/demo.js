@@ -475,8 +475,8 @@ export function mountDemo(root) {
 
   if (filesEl) filesEl.textContent = `${FILES.length} files changed`
 
-  // On narrow screens the tree is hidden and a split diff is cramped - start
-  // unified there so the demo reads cleanly on phones.
+  // On narrow screens the tree moves above the diff and a split diff is
+  // cramped, so start unified there.
   const compact =
     typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 640px)').matches
   let diffStyle = compact ? 'unified' : 'split'
