@@ -3,6 +3,8 @@
 Marketing landing page for [Diffly](https://github.com/svenbuild/diffly), the desktop diff
 tool for files and folders.
 
+Live site: [https://diffly.net](https://diffly.net)
+
 Built as a lightweight static site with [Vite](https://vitejs.dev/) — plain HTML, CSS, and a
 little vanilla JavaScript, no framework. The design reuses Diffly's own GitHub-dark theme
 (blue accent, diff red/green) so the page matches the app.
@@ -30,6 +32,41 @@ npm run preview  # serve the production build locally
 
 The `dist/` folder is fully static and can be hosted anywhere (Vercel, Netlify, Cloudflare
 Pages, GitHub Pages, …).
+
+## Production
+
+The public production site is hosted at [https://diffly.net](https://diffly.net).
+
+- DNS is managed in Cloudflare.
+- `diffly.net` and `www.diffly.net` are proxied through Cloudflare.
+- The origin is a Caddy static file site on the VPS.
+- `www.diffly.net` permanently redirects to `https://diffly.net`.
+- HTTPS is enforced at Cloudflare and Caddy.
+- Cloudflare SSL mode is Full Strict with TLS 1.2 minimum.
+- Caddy sends security headers including CSP, HSTS, `X-Content-Type-Options`,
+  `Referrer-Policy`, `Permissions-Policy`, and `frame-ancestors 'none'`.
+
+No NAS paths, internal hostnames, credentials, API tokens, or private service URLs are required
+by this repository or the static build. Keep deployment secrets and infrastructure notes out of
+the repo.
+
+## Deploy
+
+Production deploys are static file uploads:
+
+```bash
+npm run build
+# upload dist/ to the VPS static site release directory
+# switch the Caddy site symlink to the new release
+```
+
+After deploy, verify:
+
+```bash
+curl -I https://diffly.net/
+curl -I https://www.diffly.net/
+curl https://diffly.net/robots.txt
+```
 
 ## Download button
 
