@@ -459,6 +459,9 @@ img {
   gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
+  /* Above the hero demo window, so the download dropdown isn't clipped. */
+  position: relative;
+  z-index: 60;
 }
 
 .dot {
@@ -846,6 +849,25 @@ img {
   margin-right: auto;
 }
 
+.update-chip--card {
+  margin-top: 20px;
+  padding: 11px 13px;
+}
+
+.update-chip--card strong {
+  display: block;
+  font-size: 13.5px;
+}
+
+.update-chip--card span:not(.dot) {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.update-chip--card .update-go {
+  margin-left: auto;
+}
+
 .update-go {
   border: 1px solid rgba(120, 180, 255, 0.4);
   background: var(--accent-soft);
@@ -1091,6 +1113,66 @@ img {
   gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.dl-split {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.dl-split .dl-main {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.dl-split .dl-caret {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-left: 1px;
+}
+
+.dl-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 280px;
+  padding: 6px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background: rgba(13, 17, 23, 0.97);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  text-align: left;
+}
+
+.dl-menu a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.dl-menu a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.dl-menu a strong {
+  color: #fff;
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.card-body code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
 }
 
 .download-facts {
